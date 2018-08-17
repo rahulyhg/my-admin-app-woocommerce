@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="brand">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -8,11 +8,23 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+	<ion-slides #categorySlides spaceBetween="10" slidesPerView="2" pager="true" paginationType="bullets">
+		<ion-slide *ngFor="let category of categories" [ngStyle]="{'background' : 'url(' + category.image.src + ')'}">
+		  <h2>{{category.name}}</h2>
+		</ion-slide>
+	</ion-slides>
+	
+	<ion-item-divider color="brand">SHOP NOW...</ion-item-divider>
+	
+	<ion-row wrap>
+	  <ion-col no-padding col-6 *ngFor="let category of categories">  
+		  <ion-card (tap)="itemTapped($event, category)">	
+			  <img src="{{category.image.src}}" />
+			  <div class="product-text">
+				<h2 *ngIf="category.name" [innerHTML]="category.name"></h2>
+			  </div>
+		</ion-card>
+	  </ion-col>
+	</ion-row>
+	
 </ion-content>
