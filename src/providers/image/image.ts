@@ -51,7 +51,7 @@ export class ImageProvider {
          for (var i = 0; i < data.length; i++) {
 			  alert('Image URI: ' + data[i]);
 			  this.cameraImage = [];
-			  this.cameraImage.push = {"data:image/jpeg;base64," + data[i]};
+			  this.cameraImage.push = "data:image/jpeg;base64," + data[i];
 		  }
 			
             //this.cameraImage = "data:image/jpeg;base64," + data;
