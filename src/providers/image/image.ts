@@ -49,7 +49,7 @@ export class ImageProvider {
          .then((data) =>
          {	
          for (var i = 0; i < data.length; i++) {
-			  console.log('Image URI: ' + data[i]);
+			  alert('Image URI: ' + data[i]);
 		  }
 			
             this.cameraImage = "data:image/jpeg;base64," + data;
