@@ -45,7 +45,7 @@ export class ImageProvider {
 			maximumImagesCount: 3
 		  };
   
-         this.imagePicker.getPicture(cameraOptions)
+         this.imagePicker.getPictures(cameraOptions)
          .then((data) =>
          {	
          for (var i = 0; i < data.length; i++) {
