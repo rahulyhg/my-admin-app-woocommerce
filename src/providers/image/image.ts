@@ -5,7 +5,6 @@ import { ToastController, Platform, LoadingController, Loading } from 'ionic-ang
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
-import { FilePath } from '@ionic-native/file-path';
 
 
 @Injectable()
@@ -36,6 +35,7 @@ export class ImageProvider {
 			allowEdit		   : false,
 			targetWidth        : 512,
 			targetHeight       : 512,
+			maximumImagesCount : 5,
 			encodingType       : this._CAMERA.EncodingType.JPEG,
 			mediaType          : this._CAMERA.MediaType.PICTURE,
 			correctOrientation : true,

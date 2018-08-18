@@ -12,7 +12,6 @@ import { ImageProvider } from '../providers/image/image';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
-import { FilePath } from '@ionic-native/file-path';
 
 @NgModule({
   declarations: [
