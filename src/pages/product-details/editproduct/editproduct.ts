@@ -103,6 +103,7 @@ export class EditProductPage {
 			this._IMG.selectImage().then(data=>{
 			
 			   this.productimageNew = data;
+			   alert(JSON.stringif(data));
 			   //this.uploadFile();
 			});
 			
