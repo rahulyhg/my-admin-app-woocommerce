@@ -5,7 +5,7 @@ import { ToastController, Platform, LoadingController, Loading } from 'ionic-ang
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
-
+import { ImagePicker } from '@ionic-native/image-picker';
 
 @Injectable()
 export class ImageProvider {
@@ -20,7 +20,8 @@ export class ImageProvider {
                private transfer: Transfer, 
                public toastCtrl: ToastController, 
                public platform: Platform, 
-               public loadingCtrl: LoadingController)
+               public loadingCtrl: LoadingController,
+               private imagePicker: ImagePicker)
    {
    }
 
@@ -28,22 +29,29 @@ export class ImageProvider {
    selectImage() 
    {
       return new Promise(resolve => {
-         let cameraOptions : CameraOptions = {
-			quality			   : 100,
-			destinationType	   : this._CAMERA.DestinationType.DATA_URL,
-			sourceType		   : this._CAMERA.PictureSourceType.PHOTOLIBRARY,
-			allowEdit		   : false,
-			targetWidth        : 512,
-			targetHeight       : 512,
-			maximumImagesCount : 5,
-			encodingType       : this._CAMERA.EncodingType.JPEG,
-			mediaType          : this._CAMERA.MediaType.PICTURE,
-			correctOrientation : true,
-         };
-
-         this._CAMERA.getPicture(cameraOptions)
+         //let cameraOptions : CameraOptions = {
+			//quality			   : 100,
+			//destinationType	   : this._CAMERA.DestinationType.DATA_URL,
+			//sourceType		   : this._CAMERA.PictureSourceType.PHOTOLIBRARY,
+			//allowEdit		   : false,
+			//targetWidth        : 512,
+			//targetHeight       : 512,
+			//encodingType       : this._CAMERA.EncodingType.JPEG,
+			//mediaType          : this._CAMERA.MediaType.PICTURE,
+			//correctOrientation : true,
+         //};
+		 
+		 let cameraOptions = {
+			maximumImagesCount: 3
+		  };
+  
+         this.imagePicker.getPicture(cameraOptions)
          .then((data) =>
-         {
+         {	
+         for (var i = 0; i < data.length; i++) {
+			  console.log('Image URI: ' + data[i]);
+		  }
+			
             this.cameraImage = "data:image/jpeg;base64," + data;
             
             resolve(this.cameraImage);
