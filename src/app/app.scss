@@ -14,3 +14,42 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.card-background-page {
+  .menu-header {
+    padding: 5px 15px;
+    background-image: url('../assets/images/2.png');
+    background-size: cover;
+    height: 25%;
+    color: white;
+    
+    .email {
+      font-weight: 500;
+      text-align: right;
+    }
+    
+    .user-avatar {
+		margin-top: 15px;
+		padding: .4em;
+		border-radius: 50%;
+		height: 10vh;
+	  }
+    .card-title {
+		position: absolute;
+		top:8%;
+		font-size: 1.4em;
+		text-align: right;
+		width: 90%;
+		font-weight: bold;
+		color: #fff;
+	  }
+  }
+}
+.toolbar-background {
+  background-color: color($colors, brand);
+  color: #fff;
+}
+.pagelist .item {
+  background-color: color($colors, brand);
+  color: #fff;
+}

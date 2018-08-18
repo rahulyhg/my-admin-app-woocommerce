@@ -15,18 +15,13 @@ export class HomePage {
   cate: any;
   @ViewChild('categorySlides') categorySlides: Slides;
   
-  constructor(public navCtrl: NavController, public WP: WoocommerceProvider) {
-	//this.WooCommerce = this.WP.init();
-	//this.WooCommerce.getAsync("products/categories").then( (data) => {
-      //console.log(JSON.parse(data.body));
-      //this.categories = JSON.parse(data.body);
-    //}, (err) => {
-      //console.log(err);
-    //});
-    
-    this.WP.getCategories().then(data => {
-		console.log(JSON.parse(data.body));
-		this.categories = JSON.parse(data.body);
+  constructor(public navCtrl: NavController, private WP: WoocommerceProvider) {
+	this.WooCommerce = WP.init();
+	this.WooCommerce.getAsync("products/categories?per_page=100").then( (data) => {
+      console.log(JSON.parse(data.body));
+      this.categories = JSON.parse(data.body);
+    }, (err) => {
+      console.log(err);
     });
 	
   }

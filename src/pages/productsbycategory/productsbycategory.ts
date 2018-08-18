@@ -24,18 +24,22 @@ export class ProductsByCategoryPage {
 	this.category = this.navParams.get("category");
 	console.log(this.category);
 	
-	this.WooCommerce = this.WP.init();
-	
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProductsbycategoryPage');
-    this.WooCommerce.getAsync("products?filter[product_cat]=" + this.category.slug).then( (data) => {
+	this.WooCommerce = WP.init();
+	this.WooCommerce.getAsync("products?filter[product_cat]=" + this.category.slug).then( (data) => {
       this.productsbycategory = JSON.parse(data.body);
       console.log(this.productsbycategory);
     }, (err) => {
       console.log(err);
     });
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ProductsbycategoryPage');
+    
+  }
+  
+  itemTapped(event, product) {
+	this.navCtrl.push('ProductDetails', {product});
   }
 
 }

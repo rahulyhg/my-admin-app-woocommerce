@@ -1,0 +1,81 @@
+<ion-header>
+
+  <ion-navbar color="brand">
+    <ion-title> {{ product.name }} </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-card>
+    <ion-slides autoplay="3000" loop="true">
+      <ion-slide *ngFor="let image of product.images">
+        <img [src]="image.src" />
+      </ion-slide>
+    </ion-slides>
+
+    <ion-card-content>
+      <ion-card-title>
+        {{ product.name }} &nbsp;
+        <ion-chip *ngFor="let cat of product.categories" style="margin-left: 5px;" color="brand">
+          <ion-label> {{ cat.name }} </ion-label>
+        </ion-chip>
+      </ion-card-title>
+
+      <p [innerHTML]="product.short_description"></p>
+	  
+	  <div *ngIf="product.regular_price == product.price">
+		  <ion-chip style="margin-left: 5px;" color="brand">
+			<ion-label> Sale! ${{product.regular_price}} </ion-label>
+		  </ion-chip>
+	  </div>
+	  
+	  <div *ngIf="product.regular_price != product.price">
+		  <ion-chip style="margin-left: 5px;" color="brand">
+			<ion-label> Price >> $<span class="product-price">{{product.regular_price}}</span></ion-label>
+		  </ion-chip>
+		  <ion-chip style="margin-left: 5px;" color="brand">
+			<ion-label> Sale! ${{product.price}} </ion-label>
+		  </ion-chip>
+	  </div>
+    </ion-card-content>
+
+
+  </ion-card>
+
+  <ion-card *ngIf="product.variations.length != 0">
+    <ion-item-divider color="brand">Product options</ion-item-divider>
+    <ng-container *ngFor="let attribute of product.attributes">
+      <ion-item *ngIf="attribute.variation">
+        <ion-label> {{ attribute.name }}</ion-label>
+        <div item-content *ngFor="let option of attribute.options">
+		  <ion-chip style="margin-left: 5px;" color="brand">
+			<ion-label>{{option}}</ion-label>
+		  </ion-chip>
+        </div>
+      </ion-item>
+      
+    </ng-container>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="brand">
+    <ion-row>
+		<ion-col col-6>
+		  <button ion-button full color="primary" small (click)="editProduct()">
+			
+			<div>EDIT</div>
+		  </button>
+		</ion-col>
+		<ion-col col-6>
+		  <button ion-button full color="danger" small (click)="deleteProduct()">
+			
+			<div>DELETE</div>
+		  </button>
+		</ion-col>
+	 </ion-row>
+  </ion-toolbar>
+</ion-footer>

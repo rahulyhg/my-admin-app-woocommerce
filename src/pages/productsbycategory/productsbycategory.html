@@ -10,7 +10,7 @@
 <ion-content padding>
 	<ion-row wrap>
 	  <ion-col no-padding col-6 *ngFor="let product of productsbycategory">  
-		  <ion-card (tap)="itemTapped($event, category)">	
+		  <ion-card (tap)="itemTapped($event, product)">	
 			  <img *ngIf="product.images[0].src" [src]="product.images[0].src" />
 			  <div class="product-text">
 				<h2 *ngIf="product.name" [innerHTML]="product.name"></h2>

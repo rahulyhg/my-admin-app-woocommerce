@@ -5,8 +5,15 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
-    <ion-list>
+  <ion-content class="card-background-page">
+	<div class="menu-header">
+	  <!--material-design-background-->
+	  <img class="user-avatar round" [src]="userImage || placeholder" onerror="this.src='assets/images/user.png'" />
+	  <div class="card-title">T-WORK SYSTEM</div>
+	<h4 class="email">{{username}}</h4>
+	</div>
+		
+    <ion-list class="pagelist">
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>

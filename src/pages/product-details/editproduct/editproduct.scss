@@ -1,0 +1,22 @@
+page-editproduct{
+	ion-card {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    #product-image {
+		padding-left:18px;
+		font-size: 1.2em;
+    }
+    
+    
+}
+.myaction {
+
+  .MediaIcon , .UploadIcon, .CancelIcon {
+	background-color: color($colors, brand);
+	color: white;
+	border-bottom: 1px solid #fff;
+	border-radius: 20px;
+	
+  }
+}

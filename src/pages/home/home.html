@@ -7,12 +7,14 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-	<ion-slides #categorySlides spaceBetween="10" slidesPerView="2" pager="true" paginationType="bullets">
-		<ion-slide *ngFor="let category of categories" [ngStyle]="{'background' : 'url(' + category.image.src + ')'}">
-		  <h2>{{category.name}}</h2>
-		</ion-slide>
-	</ion-slides>
+<ion-content no-padding>
+  
+    <ion-slides loop="true" autoplay="3000" pager>
+      <ion-slide *ngFor="let number of [1,2,3]">
+        <img src="./assets/images/{{number}}.jpg" />
+      </ion-slide>
+      
+    </ion-slides>
 	
 	<ion-item-divider color="brand">SHOP NOW...</ion-item-divider>
 	
