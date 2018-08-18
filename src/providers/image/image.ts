@@ -13,7 +13,7 @@ export class ImageProvider {
    lastImage: string = null;
    loading: Loading;
    api_url = "";
-   cameraImage: any[];
+   cameraImage: string[];
    pimageFile;
    constructor(public http     : Http,
                private _CAMERA : Camera,
