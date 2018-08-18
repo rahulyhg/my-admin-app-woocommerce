@@ -13,7 +13,7 @@ export class ImageProvider {
    lastImage: string = null;
    loading: Loading;
    api_url = "";
-   cameraImage: string[] = [];
+   cameraImage: any[];
    pimageFile;
    constructor(public http     : Http,
                private _CAMERA : Camera,
@@ -50,6 +50,7 @@ export class ImageProvider {
          {	
          for (var i = 0; i < data.length; i++) {
 			  alert('Image URI: ' + data[i]);
+			  this.cameraImage = [];
 			  this.cameraImage.push = "data:image/jpeg;base64," + data[i];
 		  }
 			
