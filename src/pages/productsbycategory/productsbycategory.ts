@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { WoocommerceProvider } from '../../providers/woocommerce/woocommerce';
 
 /**
@@ -20,10 +20,12 @@ export class ProductsByCategoryPage {
   productsbycategory: any[] = [];
   WooCommerce: any;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams, private WP: WoocommerceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private WP: WoocommerceProvider, public loadingCtrl: LoadingController) {
 	this.category = this.navParams.get("category");
 	console.log(this.category);
-	
+	let loading = this.loadingCtrl.create();
+
+    loading.present();    
 	this.WooCommerce = this.WP.init();
 	this.WooCommerce.getAsync("products?filter[product_cat]=" + this.category.slug).then( (data) => {
       this.productsbycategory = JSON.parse(data.body);
@@ -31,6 +33,9 @@ export class ProductsByCategoryPage {
     }, (err) => {
       console.log(err);
     });
+  setTimeout(() => {
+	loading.dismiss();
+  }, 1000);
   }
 
   ionViewDidLoad() {
