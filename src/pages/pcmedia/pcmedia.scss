@@ -1,0 +1,28 @@
+page-pcmedia {
+	ion-card {
+		ion-radio {
+			background-color: #becadd;
+			border-radius: 10px;
+			padding: 0px;
+			margin:0px;
+		}
+	}
+	
+	.imageGallery {
+		height: 87px;
+		background-color: color($colors, brand);
+	}
+	
+	.close-icon {
+	  position: absolute;
+	  right: 5px;
+	  top: 5px;
+	  color: #000;
+	  font-size: 12px;
+	}
+	
+	.inner {
+	  position: relative;
+	}
+
+}

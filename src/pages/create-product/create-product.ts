@@ -15,7 +15,7 @@ export class CreateProductPage {
   price;
   sale_price;
   image;
-  pimage;
+  pimage: any[];
   pimageFile;
   WooCommerce: any;
   imageUrl;
@@ -48,11 +48,12 @@ export class CreateProductPage {
 		  role: 'media',
 		  cssClass: 'MediaIcon',
 		  handler: () => {
-			 let profileModal = this.modalCtrl.create('PCMediaPage');
+			 let profileModal = this.modalCtrl.create('PcmediaPage', {feature : true});
 			 profileModal.onDidDismiss(data => {
 			   console.log(data);
 			   if(data != null) {
 				 //this.productNewfeatureimage = data.guid.rendered;
+				 this.pimage = [];
 				 let image = {
 					id: data.id,
 					date_created: data.date,
@@ -64,7 +65,8 @@ export class CreateProductPage {
 					alt: data.alt_text,
 					position: 0
 				 };
-				 //this.pimage.splice(0, 1, image);
+				 
+				 this.pimage.splice(0, 0, image);
 			   }
 			 });
 			 profileModal.present();
@@ -74,14 +76,17 @@ export class CreateProductPage {
 		  text: 'Gallery Images',
 		  cssClass: 'GalleryIcon',
 		  handler: () => {
-			let profileModal = this.modalCtrl.create('PCMediaPage');
+			let profileModal = this.modalCtrl.create('PcmediaPage', {feature : false});
 			 profileModal.onDidDismiss(data => {
 			   console.log(data);
 			   if(data != null) {
 				 //this.productimageNew = data.guid.rendered;
 				 //this.pimageFile = data;
 				 //this.pimage.push({id: data.id, src: data.guid.rendered});
-				 this.pimage = data;
+				 let images = data;
+				 for(var i=0; i<images.length; i++) {
+					this.pimage.splice(1, 0, images[i]);
+				 }
 			   }
 			 });
 			 profileModal.present();
@@ -108,6 +113,7 @@ export class CreateProductPage {
 		price: this.price,
 		regular_price: this.price,
 		sale_price: this.sale_price,
+		images: this.pimage
     };
     this.WooCommerce = this.WP.init();
 	this.WooCommerce.postAsync("products", data).then( (data) => {

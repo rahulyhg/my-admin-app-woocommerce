@@ -1,0 +1,70 @@
+<!--
+  Generated template for the PcmediaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>pcmedia</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding class="media" radio-group [(ngModel)]="autoManufacturers">
+	
+	<ion-row wrap>
+	  <ion-col no-padding col-3 *ngFor="let image of media">  
+		  <ion-card>	
+			  <img src="{{image.guid.rendered}}" />
+			  <ion-radio value="{{image.id}}" (click)="changeStatus(image)"></ion-radio>		
+		</ion-card>
+	  </ion-col>
+	</ion-row>
+	
+	<ion-infinite-scroll [enabled]="morePagesAvailable" (ionInfinite)="doInfinite($event)">
+		<ion-infinite-scroll-content
+		loadingSpinner="bubbles"
+		loadingText="Loading more photos ...">
+		</ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+</ion-content>
+
+<ion-footer>
+	<div class="imageGallery" *ngIf="feature">	
+		<ion-row wrap *ngIf="newfimage">
+			<ion-col col-3>
+				<img [src]="newfimage" id="imgPlacement">
+			</ion-col>
+			
+		</ion-row>		
+	</div>
+	
+	<div class="imageGallery" *ngIf="!feature">
+		<ion-row wrap>
+			<ion-col class="inner" col-3 *ngFor="let image of galleryImage;let id = index">
+				<img [src]="image.src" id="imgPlacement">
+				<span class="close-icon" (click)="deleteImage(id)">X</span>
+			</ion-col>
+			
+		</ion-row>	
+	</div>
+  <ion-toolbar>
+	
+    <ion-row>
+		<ion-col col-6>
+		  <button ion-button full color="danger" small (click)="cancel()">
+			
+			<div>Cancel</div>
+		  </button>
+		</ion-col>
+		<ion-col col-6>
+		  <button ion-button full color="primary" small (click)="dismiss()">
+			
+			<div>Change</div>
+		  </button>
+		</ion-col>
+	 </ion-row>
+  </ion-toolbar>
+</ion-footer>

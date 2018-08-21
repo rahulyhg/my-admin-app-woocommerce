@@ -1,45 +1,39 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { WordpressProvider } from '../../providers/wordpress/wordpress';
+/**
+ * Generated class for the PcmediaPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 @IonicPage()
 @Component({
-  selector: 'page-media',
-  templateUrl: 'media.html',
-})
-export class MediaPage {
-  autoManufacturers;
-  media: any;
-  mimage : any;
-  newfimage : any;
-  images : any[];
-  galleryImage: any[];
-  page: number;
+  selector: 'page-pcmedia',
+  templateUrl: 'pcmedia.html',
+}) 
+export class PcmediaPage {
+
   feature: boolean;
-  morePagesAvailable: boolean = true;
-  
+  newfimage : any;
+  galleryImage: any[]= [];
+  media: any;
+  autoManufacturers;
+  mimage: any;
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams,
 			  public viewCtrl: ViewController,
 			  private wordpress: WordpressProvider) {
-	this.images = navParams.get('pimage');
 	this.feature = navParams.get('feature');
-	console.log(this.images);
-	this.galleryImage = [];
-	for(var i=1; i< this.images.length ; i++) {
-		this.galleryImage.push(this.images[i]);
-	}
-	console.log(this.galleryImage);
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MediaPage');
-    this.page = 1;
+    console.log('ionViewDidLoad PcmediaPage');
     this.getMedia();
-    
   }
 
-   getMedia() {
+  getMedia() {
     console.log('getmedia is work');
 	this.wordpress.getMedia().subscribe( (data) => {
 	  console.log(data);
@@ -87,8 +81,8 @@ export class MediaPage {
 	   });
    }
    else {
-   console.log(this.images[0]);
-		let data:any[] = [this.images[0]];
+   
+		let data:any[] = [];
 		for(var i=0; i< this.galleryImage.length ; i++) {
 			data.push(this.galleryImage[i]);
 		}
@@ -101,27 +95,4 @@ export class MediaPage {
  cancel() {
 	this.viewCtrl.dismiss();
  }
- 
-  doInfinite(infiniteScroll) {
-	this.page++;
-	
-    let loading = true;
-    console.log("Getting page " + this.page);
-	this.wordpress.getMedia(this.page).subscribe(data => {
-    let med : any = data;
-      for(let m of med){
-        if(!loading){
-          infiniteScroll.complete();
-        }
-        m.description.rendered = m.description.rendered.split('<a')[0] + "</p>";
-        this.media.push(m);
-        loading = false;
-        this.morePagesAvailable = true;
-      }
-    }, err => {
-      this.morePagesAvailable = false;
-    })
-    
-  }
-  
 }
