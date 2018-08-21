@@ -20,7 +20,7 @@ export class CreateProductPage {
   image;
   pimage;
   pimageFile;
-  
+  WooCommerce: any;
   imageUrl;
   imageData;
   hiddenImage= true;
