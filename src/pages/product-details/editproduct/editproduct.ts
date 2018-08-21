@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, NavController, LoadingController, AlertController, IonicPage, ActionSheetController, ToastController, ModalController } from 'ionic-angular';
+import { NavParams, NavController, LoadingController, AlertController, IonicPage, ActionSheetController, ToastController, ModalController, ViewController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 import { Observable } from "rxjs/Observable";
@@ -8,6 +8,7 @@ import 'rxjs/add/observable/forkJoin';
 import { WoocommerceProvider } from '../../../providers/woocommerce/woocommerce';
 import * as WC from 'woocommerce-api';
 import { ImageProvider } from '../../../providers/image/image';
+import { Transfer, TransferObject } from '@ionic-native/transfer';
 
 @IonicPage()
 @Component({
@@ -24,7 +25,7 @@ export class EditProductPage {
   productprice :any;
   productsprice : any;	
   productimage : any;
-  productimageNew : any;	
+  productNewfeatureimage : any;	
   pimage : any[] = [];  
   pimageFile: any;
   placeholder_picture = "assets/images/pimage.png";
@@ -41,6 +42,8 @@ export class EditProductPage {
 	public toastCtrl: ToastController, 
 	public _IMG: ImageProvider,
 	public modalCtrl: ModalController,
+	public viewCtrl: ViewController,
+	public transfer: Transfer,
 	private WP: WoocommerceProvider) {
 		this.product= navParams.get('editProduct');
 		console.log(this.product);
@@ -70,7 +73,7 @@ export class EditProductPage {
 	  productdescription : this.productdescription,
 	  productprice: this.productprice,
 	  productsprice : this.productsprice,
-	  productimage : this.productimage
+	  productimage : this.pimage
    	  
     });
   }
@@ -81,32 +84,47 @@ export class EditProductPage {
 	  cssClass: 'myaction',
 	  buttons: [
 		{
-		  text: 'Media Library',
+		  text: 'Feature Image',
 		  role: 'media',
 		  cssClass: 'MediaIcon',
 		  handler: () => {
-			 let profileModal = this.modalCtrl.create('MediaPage');
+			 let profileModal = this.modalCtrl.create('MediaPage',{pimage: this.pimage, feature: true});
 			 profileModal.onDidDismiss(data => {
 			   console.log(data);
 			   if(data != null) {
-				 this.productimageNew = data.guid.rendered;
-				 this.pimageFile = data;
+				 //this.productNewfeatureimage = data.guid.rendered;
+				 let image = {
+					id: data.id,
+					date_created: data.date,
+					date_created_gmt: data.date_gmt,
+					date_modified: data.modified,
+					date_modified_gmt: data.modified_gmt,
+					src: data.guid.rendered,
+					name: data.title.rendered,
+					alt: data.alt_text,
+					position: 0
+				 };
+				 this.pimage.splice(0, 1, image);
 			   }
 			 });
 			 profileModal.present();
 		  }
 		},
 		{
-		  text: 'Upload File',
-		  cssClass: 'UploadIcon',
+		  text: 'Gallery Images',
+		  cssClass: 'GalleryIcon',
 		  handler: () => {
-			this._IMG.selectImage().then(data=>{
-			
-			   this.productimageNew = data;
-			   alert(JSON.stringify(data));
-			   //this.uploadFile();
-			});
-			
+			let profileModal = this.modalCtrl.create('MediaPage', {pimage: this.pimage, feature: false});
+			 profileModal.onDidDismiss(data => {
+			   console.log(data);
+			   if(data != null) {
+				 //this.productimageNew = data.guid.rendered;
+				 //this.pimageFile = data;
+				 //this.pimage.push({id: data.id, src: data.guid.rendered});
+				 this.pimage = data;
+			   }
+			 });
+			 profileModal.present();
 		  }
 		 },
 		 {
@@ -121,15 +139,27 @@ export class EditProductPage {
 	});
 	actionSheet.present();
   }
-	
+  
   updateProduct(values){
     console.log(values);
-
+	let data = {
+	    name: values.productname,
+		short_description: values.productdescription,
+		images: this.pimage,
+		regular_price: values.productprice,
+		price: values.productsprice,
+		sale_price: values.productsprice
+	};
 	this.WooCommerce = this.WP.init();
-	this.WooCommerce.putAsync("products/" + this.product.id, values).then( (data) => {
+	this.WooCommerce.putAsync("products/" + this.product.id, data).then( (data) => {
 	  console.log(JSON.parse(data.body));
+	  
     }, (err) => {
 	  console.log(err);
 	});
+	
+	this.navCtrl.pop();
+	this.ionViewWillEnter();
   }
+  
 }

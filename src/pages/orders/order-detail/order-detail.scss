@@ -9,6 +9,8 @@ page-order-detail {
   }
   .body {
     .currencies {
+      color: #ffffff;
+	  
 	  .order-header{
 		background-color: color($colors, brand);
         padding: 10px;
@@ -59,4 +61,10 @@ page-order-detail {
       }
     }
   }
+}
+.myaction {
+	.processing, .complete, .pending, .cancel, .onhold {
+		background-color: color($colors, brand);
+		color: #fff;
+	}
 }

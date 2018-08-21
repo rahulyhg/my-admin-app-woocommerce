@@ -30,4 +30,8 @@ export class HomePage {
 	this.navCtrl.push('ProductsByCategoryPage', {category});
   }
   
+  addProduct() {
+	this.navCtrl.push('CreateProductPage');
+  }
+  
 }

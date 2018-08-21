@@ -37,18 +37,10 @@
 		<ion-card color="brand">
 			<ion-label id="product-image">Product Image :</ion-label>
 			<ion-slides pager paginationType="bullet" (click)="getPhoto()">
-			  <ion-slide *ngFor="let image of pimage" class="myaction">
+			  <ion-slide *ngFor="let image of pimage">
 				<img [src]="image.src" />
 			  </ion-slide>
-			</ion-slides>
-			
-			<!--<div *ngIf="productimageNew">
-				<img [src]="productimageNew" (click)="getPhoto()">
-			</div>
-			<div *ngIf="!productimageNew">
-				<img [src]="productimage ? productimage : placeholder_picture" (click)="getPhoto()">
-			</div>  -->
-			  
+			</ion-slides>		  
 			
 		</ion-card>
     </ion-list>

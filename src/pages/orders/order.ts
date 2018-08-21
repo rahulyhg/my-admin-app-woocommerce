@@ -36,7 +36,9 @@ export class OrderPage {
       }, (err) => {
         console.log(err);
       });
-      loading.dismiss();
+      setTimeout(() => {
+		loading.dismiss();
+	  }, 3000);
       
 	  
   }

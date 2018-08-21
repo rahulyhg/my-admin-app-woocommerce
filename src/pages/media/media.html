@@ -12,7 +12,7 @@
 	  <ion-col no-padding col-3 *ngFor="let image of media">  
 		  <ion-card>	
 			  <img src="{{image.guid.rendered}}" />
-			  <ion-radio value="{{image.id}}"></ion-radio>		
+			  <ion-radio value="{{image.id}}" (click)="changeStatus(image)"></ion-radio>		
 		</ion-card>
 	  </ion-col>
 	</ion-row>
@@ -26,7 +26,32 @@
 </ion-content>
 
 <ion-footer>
+	<div class="imageGallery" *ngIf="feature">
+		<ion-row wrap *ngIf="!newfimage">
+			<ion-col col-3>
+				<img [src]="images[0].src" id="imgPlacement">
+			</ion-col>
+			
+		</ion-row>	
+		<ion-row wrap *ngIf="newfimage">
+			<ion-col col-3>
+				<img [src]="newfimage" id="imgPlacement">
+			</ion-col>
+			
+		</ion-row>		
+	</div>
+	
+	<div class="imageGallery" *ngIf="!feature">
+		<ion-row wrap>
+			<ion-col class="inner" col-3 *ngFor="let image of galleryImage;let id = index">
+				<img [src]="image.src" id="imgPlacement">
+				<span class="close-icon" (click)="deleteImage(id)">X</span>
+			</ion-col>
+			
+		</ion-row>	
+	</div>
   <ion-toolbar>
+	
     <ion-row>
 		<ion-col col-6>
 		  <button ion-button full color="danger" small (click)="cancel()">
